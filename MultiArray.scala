@@ -3,9 +3,10 @@ object MultiArray {
     val dish = Array.ofDim[Boolean](5, 5)
     
     readInput(dish)
-    printDish(dish)
+    
     val nextGen = calculateNextGeneration(dish)
-    printDish(nextGen)
+    
+    printDishes(dish, nextGen)
   }
   
   def readInput(dish: Array[Array[Boolean]]) {
@@ -26,7 +27,6 @@ object MultiArray {
   
   def calculateNextGeneration(dish: Array[Array[Boolean]]) = {
     val nextGen = Array.ofDim[Boolean](5, 5)
-    val numLiveNeighbours = Array.ofDim[Int](5, 5)
     
     for (y <- 0 until dish.length) {
       for (x <- 0 until dish(y).length) {
@@ -35,7 +35,6 @@ object MultiArray {
         
         // Calculate the number of live neighbours
         val count = calculateNumberOfLiveNeighbours(dish, y, x)
-        numLiveNeighbours(y)(x) = count
         
         // Rule 2
         if (isLive && (count == 2 || count ==3)) nextGen(y)(x) = true
@@ -44,7 +43,6 @@ object MultiArray {
       }
     }
     
-    printDish(numLiveNeighbours)
     nextGen
   }
   
@@ -70,56 +68,35 @@ object MultiArray {
     dish(y)(x)
   }
   
-  def printDish(dish: Array[Array[Boolean]]) {
-    val width = dish(0).length + 2
+  def printDishes(orig: Array[Array[Boolean]], nextGen: Array[Array[Boolean]]) {
+    val width = orig(0).length + 2
     
-    print("\n\n")
+    println()
+    
+    println("Original:        Next Gen:")
     
     // Print top row
     for (i <- 0 until width) print("* ")
-    println("")
+    print("   ")
+    for (i <- 0 until width) print("* ")
+    println()
     
     // Print each cell in the grid
-    for (row <- dish) {
+    for (y <- 0 until orig.length) {
       print("* ")
-      for(el <- row) if(el) print("X ") else print("- ")
-      println("* ")
+      for(el <- orig(y)) if(el) print("X ") else print("- ")
+      print("*    * ")
+      for(el <- nextGen(y)) if(el) print("X ") else print("- ")
+      print("* ")
+      println()
     }
     
     // Print bottom row
     for (i <- 0 until width) print("* ")
-    print("\n\n")
-  }
-  
-  def printDish(dish: Array[Array[Int]]) {
-    val width = dish(0).length + 2
-    
-    print("\n\n")
-    
-    // Print top row
+    print("   ")
     for (i <- 0 until width) print("* ")
-    println("")
     
-    // Print each cell in the grid
-    for (row <- dish) {
-      print("* ")
-      for(el <- row) print(el + " ")
-      println("* ")
-    }
-    
-    // Print bottom row
-    for (i <- 0 until width) print("* ")
-    print("\n\n")
+    println()
+    println()
   }
 }
-
-//dish(0)(1) = true
-//dish(1)(2) = true
-
-//for (row <- dish)
-//  for (el <- row)
-//    println(el)
-
-//for (row <- dish; el <- row) println(el)
-
-//matrix(row)(column) = 42
