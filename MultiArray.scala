@@ -1,15 +1,16 @@
 object MultiArray {
+  private val HEIGHT = 5
+  private val WIDTH = 5
+  
   def main(args: Array[String]) {
-    val dish = Array.ofDim[Boolean](5, 5)
-    
-    readInput(dish)
-    
+    val dish = readInput()
     val nextGen = calculateNextGeneration(dish)
-    
     printDishes(dish, nextGen)
   }
   
-  def readInput(dish: Array[Array[Boolean]]) {
+  def readInput() = {
+    val dish = Array.ofDim[Boolean](HEIGHT, WIDTH)
+    
     println("Please enter details of the live cells...")
     
     var readingInput = true
@@ -23,17 +24,16 @@ object MultiArray {
         dish(y)(x) = true
       }
     }
+    
+    dish
   }
   
   def calculateNextGeneration(dish: Array[Array[Boolean]]) = {
-    val nextGen = Array.ofDim[Boolean](5, 5)
+    val nextGen = Array.ofDim[Boolean](HEIGHT, WIDTH)
     
-    for (y <- 0 until dish.length) {
-      for (x <- 0 until dish(y).length) {
-        
+    for (y <- 0 until HEIGHT) {
+      for (x <- 0 until WIDTH) {
         val isLive = dish(y)(x)
-        
-        // Calculate the number of live neighbours
         val count = calculateNumberOfLiveNeighbours(dish, y, x)
         
         // Rule 2
@@ -47,56 +47,42 @@ object MultiArray {
   }
   
   def calculateNumberOfLiveNeighbours(dish: Array[Array[Boolean]], y: Int, x: Int) = {
-    var count = 0
+    val neighbours = List((y-1, x-1), (y-1, x), (y-1, x+1), (y, x-1), (y, x+1), (y+1, x-1), (y+1, x), (y+1, x+1))
     
-    if(isNeighbourLive(dish, y-1, x-1)) count += 1
-    if(isNeighbourLive(dish, y-1, x)) count += 1
-    if(isNeighbourLive(dish, y-1, x+1)) count += 1
-    if(isNeighbourLive(dish, y, x-1)) count += 1
-    if(isNeighbourLive(dish, y, x+1)) count += 1
-    if(isNeighbourLive(dish, y+1, x-1)) count += 1
-    if(isNeighbourLive(dish, y+1, x)) count += 1
-    if(isNeighbourLive(dish, y+1, x+1)) count += 1
-    
-    count
+    neighbours.foldLeft(0) { (total, n) =>
+      if (!((n._1 < 0 || n._1 >= HEIGHT) || (n._2 < 0 || n._2 >= WIDTH)) && dish(n._1)(n._2)) {
+        total + 1
+      } else {
+        total
+      }
+    }
   }
   
-  def isNeighbourLive(dish: Array[Array[Boolean]], y: Int, x: Int): Boolean = {
-    if (y < 0 || y >= dish.length) return false
-    if (x < 0 || x >= dish(0).length) return false
-    
-    dish(y)(x)
-  }
-  
-  def printDishes(orig: Array[Array[Boolean]], nextGen: Array[Array[Boolean]]) {
-    val width = orig(0).length + 2
-    
-    println()
-    
-    println("Original:        Next Gen:")
+  def printDishes(orig: Array[Array[Boolean]], nextGen: Array[Array[Boolean]]) {    
+    println("\nOriginal:        Next Gen:")
     
     // Print top row
-    for (i <- 0 until width) print("* ")
-    print("   ")
-    for (i <- 0 until width) print("* ")
-    println()
+    print("* ")
+    for (i <- 0 until WIDTH) print("* ")
+    print("*    * ")
+    for (i <- 0 until WIDTH) print("* ")
+    print("* \n")
     
     // Print each cell in the grid
-    for (y <- 0 until orig.length) {
+    for (y <- 0 until HEIGHT) {
       print("* ")
       for(el <- orig(y)) if(el) print("X ") else print("- ")
       print("*    * ")
       for(el <- nextGen(y)) if(el) print("X ") else print("- ")
-      print("* ")
-      println()
+      print("* \n")
     }
     
     // Print bottom row
-    for (i <- 0 until width) print("* ")
-    print("   ")
-    for (i <- 0 until width) print("* ")
-    
-    println()
-    println()
+    print("* ")
+    for (i <- 0 until WIDTH) print("* ")
+    print("*    * ")
+    for (i <- 0 until WIDTH) print("* ")
+    print("* \n\n\n")
   }
+  
 }
