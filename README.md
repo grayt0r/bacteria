@@ -6,8 +6,8 @@ Solution to the Bacteria programming challenge.
 
 * Install [sbt](https://github.com/harrah/xsbt)
 * Get the source:
-	$ git clone git@github.com:grayt0r/bacteria.git
-	$ cd bacteria
+		$ git clone git@github.com:grayt0r/bacteria.git
+		$ cd bacteria
 * Launch sbt:
 	$ sbt
 * Compile and run the code:
