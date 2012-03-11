@@ -3,7 +3,7 @@
 Solution to the Bacteria programming challenge.
 
 
-## Install steps:
+## Install steps
 
 * Install [sbt](https://github.com/harrah/xsbt)
 * Get the source:
@@ -21,7 +21,9 @@ Solution to the Bacteria programming challenge.
 		$ run
 
 
-## Options:
+## Options
+
+All options should be specified after the run command.
 
 * Print the grids to the console:
 
@@ -34,3 +36,11 @@ Solution to the Bacteria programming challenge.
 * Specify the width of the petri dish (defaults to 5):
 
 		$ --width 10
+
+
+## Tests
+
+* To run the unit tests:
+
+		$ compile
+		$ tests

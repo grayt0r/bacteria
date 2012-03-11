@@ -5,15 +5,21 @@ object Bacteria {
   type OptionMap = Map[Symbol, Any]
   
   def main(args: Array[String]) {
-    val options = parseOptions(Map(), args.toList)
-    
-    val print = options.getOrElse('print, false).asInstanceOf[Boolean]
-    val height = options.getOrElse('height, 5).asInstanceOf[Int]
-    val width = options.getOrElse('width, 5).asInstanceOf[Int]
-    
-    val pd = new PetriDish(height, width)
-    pd.readInput()
-    pd.calculateNextGeneration(print)
+    try {
+      val options = parseOptions(Map(), args.toList)
+      
+      val printArg = options.getOrElse('print, false).asInstanceOf[Boolean]
+      val heightArg = options.getOrElse('height, 5).asInstanceOf[Int]
+      val widthArg = options.getOrElse('width, 5).asInstanceOf[Int]
+
+      val pd = new PetriDish(heightArg, widthArg, printArg)
+      pd.simulate()
+      
+    } catch {
+      case e: IllegalArgumentException =>
+        println(e.getMessage)
+        sys.exit(1)
+    }
   }
   
   def parseOptions(map: OptionMap, list: List[String]) : OptionMap = {    
@@ -26,8 +32,7 @@ object Bacteria {
       case "--width" :: value :: tail =>
         parseOptions(map ++ Map('width -> value.toInt), tail)
       case option :: tail =>
-        println("Unknown option: " + option) 
-        sys.exit(1) 
+        throw new IllegalArgumentException("Unknown argument: " + option)
     }
   }
   
