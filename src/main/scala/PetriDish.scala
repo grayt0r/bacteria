@@ -40,7 +40,7 @@ class PetriDish(val height: Int = 5, val width: Int = 5) {
   }
   
   def setLiveCells(liveCells: Array[(Int, Int)]) {
-    liveCells.foreach { lc => grid(lc._1)(lc._2) = true }
+    liveCells.foreach { lc => grid(lc._2)(lc._1) = true }
   }
 
   def calculateNextGeneration(isPrint: Boolean) {
