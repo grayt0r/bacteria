@@ -40,7 +40,7 @@ All options should be specified after the run command.
 
 ## Tests
 
-* To run the unit tests:
+* To run the specs2 unit tests:
 
 		$ compile
 		$ tests
