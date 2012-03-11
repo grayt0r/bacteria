@@ -36,6 +36,10 @@ class PetriDishSpec extends Specification {
       pd.nextGen(2)(1) must beEqualTo(false)
       pd.nextGen(2)(3) must beEqualTo(false)
     }
+    "handle malformed input" in new dish {
+      val liveCells = Array(("a", "b"))
+      pd.setLiveCells(liveCells)
+    }
   }
   
   trait dish extends Scope {

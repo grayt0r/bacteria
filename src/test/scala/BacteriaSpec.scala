@@ -7,7 +7,8 @@ class BacteriaSpec extends Specification {
 
   "Bacteria" should {
     "take a -p parameter" in {
-      
+      // TODO: How to test this?
+      true must beEqualTo(true)
     }
   }
   

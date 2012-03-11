@@ -1,3 +1,2 @@
 .DS_Store
 target/
-src/main/scala/MultiArray.scala
