@@ -23,7 +23,7 @@ Solution to the Bacteria programming challenge.
 
 ## Options
 
-* Print the grids to the console:
+* Print the grids to the console (defaults to false):
 
 		> run --print
 
@@ -37,6 +37,10 @@ Solution to the Bacteria programming challenge.
 
 
 ## Tests
+
+* Launch sbt:
+
+		$ sbt
 
 * To run the specs2 unit tests:
 
