@@ -17,30 +17,28 @@ Solution to the Bacteria programming challenge.
 
 * Compile and run the code:
 
-		$ compile
-		$ run
+		> compile
+		> run
 
 
 ## Options
 
-All options should be specified after the run command.
-
 * Print the grids to the console:
 
-		$ --print
+		> run --print
 
 * Specify the height of the petri dish (defaults to 5):
 
-		$ --height 10
+		> run --height 10
 
 * Specify the width of the petri dish (defaults to 5):
 
-		$ --width 10
+		> run --width 10
 
 
 ## Tests
 
 * To run the specs2 unit tests:
 
-		$ compile
-		$ tests
+		> compile
+		> test
