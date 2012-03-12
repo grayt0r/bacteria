@@ -8,6 +8,7 @@ class PetriDish(
     val printGrid: Boolean = false,
     val getInput: () => String = readLine) {
   
+  // TODO: Is this initial assignment a waste?
   var grid = Array.ofDim[Boolean](height, width)
   var nextGen = Array.ofDim[Boolean](height, width)
   
@@ -27,12 +28,15 @@ class PetriDish(
     while (readingInput) {
       try {
         val coords = parseInput(getInput())
+        // If coords is the terminator, stop reading input
         if (coords._1 == -1 && coords._2 == -1) {
           readingInput = false
         } else {
           inputs += coords
         }
       } catch {
+        // If the input cannot be parsed, inform the user and
+        // let them try again
         case e: IllegalArgumentException => println(e.getMessage)
       }
     }
@@ -98,7 +102,8 @@ class PetriDish(
     // Print the terminator
     println("-1,-1\n")
     
-    if (printGrid) printGrids(width)
+    // If the print option was specified, print the before and after grids
+    if (printGrid) printGrids()
     
     println("Would you like to continue? (y/n)")
     if (readLine() == "y") {
@@ -108,9 +113,10 @@ class PetriDish(
     }
   }
 
-  def printGrids(width: Int) {    
+  def printGrids() {
+    // Print titles
     print("Original:")
-    for(i <- 1 to (width*2 -2)) print(" ")
+    for(i <- 1 to (width*2 - 2)) print(" ")
     print("Next Gen:\n")
   
     // Print top row

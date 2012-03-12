@@ -6,8 +6,8 @@ object Bacteria {
   
   def main(args: Array[String]) {
     try {
+      // Parse the options
       val options = parseOptions(Map(), args.toList)
-      
       val printArg = options.getOrElse('print, false).asInstanceOf[Boolean]
       val heightArg = options.getOrElse('height, 5).asInstanceOf[Int]
       val widthArg = options.getOrElse('width, 5).asInstanceOf[Int]
@@ -22,7 +22,7 @@ object Bacteria {
     }
   }
   
-  def parseOptions(map: OptionMap, list: List[String]) : OptionMap = {    
+  def parseOptions(map: OptionMap, list: List[String]): OptionMap = {    
     list match {
       case Nil => map
       case "--print" :: tail =>
